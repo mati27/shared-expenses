@@ -1,0 +1,37 @@
+<template name="daily_expenses_list">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong>Gastos</strong>
+    </div>
+    {{#if expenses }}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="toggle-all"></th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Pagado por</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each expenses}}
+            <tr>
+              <td><input type="checkbox" class="select-expense"></td>
+              <td>{{ formatDate createdAt 'DD/MM/YYYY hh:mm' }}</td>
+              <td>{{ description }}</td>
+              <td>${{ amount }}</td>
+              <td>{{ paidBy }}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <div class="panel-body">
+        <p>No hay gastos registrados</p>
+      </div>
+    {{/if}}
+  </div>
+  <button class="btn btn-success settle-selected">Marcar como arreglado</button>
+</template>

@@ -1,0 +1,41 @@
+<template name="daily_expense_add">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong>NUEVO GASTO</strong>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form new-expense">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description">Descripción</label>
+                <input name="description" type="text" class="form-control" id="description" required>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="amount">Monto</label>
+                <input name="amount" type="number" class="form-control" id="amount" required>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="paid_by">Pagador por</label>
+                <select id="paid_by" name="paidBy" required>
+                  <option value=""></option>
+                  {{#each users}}
+                    <option value="{{ username }}">{{ profile.name }}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
