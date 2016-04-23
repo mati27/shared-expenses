@@ -1,11 +1,8 @@
 var expensesSelected = [];
-var allExpenses = function () {
-    var expensesAsJson = Expenses.find({settled: {$ne: true}}, {sort: {createdAt: -1}});
-    return expensesAsJson.map(function(expenseAsJson) { return new Expense(expenseAsJson); });
-};
+var expenseCollection = new ExpenseCollection();
 
 Template.daily_expenses_list.helpers({
-    expenses: allExpenses,
+    expenses: expenseCollection.findAll
 });
 
 Template.daily_expenses_list.events({
@@ -13,7 +10,7 @@ Template.daily_expenses_list.events({
         var checked = event.target.checked;
         $('.select-expense').prop('checked', checked);
         if(checked) {
-            expensesSelected = allExpenses().map(function(e) { return e._id; });
+            expensesSelected = expenseCollection.findAll().map(function(e) { return e._id; });
         } else {
             expensesSelected = [];
         }
@@ -29,7 +26,7 @@ Template.daily_expenses_list.events({
     },
     'click .settle-selected': function(event) {
         if(expensesSelected.length > 0) {
-            Meteor.call('settleExpenses', expensesSelected);
+            expenseCollection.settleMultipleExpenses(expensesSelected);
             expensesSelected = [];
         }
     }
