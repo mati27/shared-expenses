@@ -1,3 +1,5 @@
+var expenseCollection = new ExpenseCollection();
+
 Template.daily_expense_add.helpers({
     users: function () {
         return Meteor.users.find({});
@@ -12,7 +14,7 @@ Template.daily_expense_add.events({
         var amount = event.target.amount.value;
         var paidBy = event.target.paidBy.value;
 
-        Meteor.call("addExpense", {description: description, amount: amount, paidBy: paidBy, settled: false});
+        expenseCollection.add(new Expense({description: description, amount: amount, paidBy: paidBy, settled: false}));
 
         // Clear form
         event.target.description.value = "";
